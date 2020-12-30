@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.spirngMVC.dao.ItemMapper">
+    <resultMap id="ItemResult" type="com.yh.spirngMVC.bean.Item">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="itemname" property="itemname" jdbcType="VARCHAR"/>
+        <result column="detail" property="detail" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+    </resultMap>
+    <sql id ="Item_Column">
+    id, itemname , detail  , price
+  </sql>
+    <select id="getItemByItemname" parameterType="java.lang.String" resultMap="ItemResult">
+        select
+        <include refid="Item_Column"/>
+        from item
+        where itemname = #{itemname}
+    </select>
+
+
+    <insert id="insertItem" parameterType="com.yh.spirngMVC.bean.Item" useGeneratedKeys="true" keyProperty="id">
+    insert into item ( itemname, detail ,price)
+    values (#{itemname}, #{detail},  #{price})
+    </insert>
+
+
+
+
+</mapper>
